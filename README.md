@@ -88,6 +88,7 @@ MIDI 번호(pitch_midi) 로 변환
 
 ## 프로젝트 구조
 
+'''
 MyGuitarApp
 ├── App
 │   ├── MyGuitarAppApp.swift     // @main, 앱 진입점
@@ -125,3 +126,4 @@ MyGuitarApp
     │
     └── Settings
         └── SettingsView.swift    // 설정 탭 화면
+'''
