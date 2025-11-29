@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		35221B5E2ED6D21700300CFC /* .gitignore in Sources */ = {isa = PBXBuildFile; fileRef = 35221B5D2ED6D21400300CFC /* .gitignore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		35221B392ED6D19700300CFC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,9 +28,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		35221B2B2ED6D19600300CFC /* MyGuitarApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyGuitarApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		35221B382ED6D19700300CFC /* MyGuitarAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyGuitarAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		35221B422ED6D19700300CFC /* MyGuitarAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyGuitarAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		35221B2B2ED6D19600300CFC /* MyGuitar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyGuitar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		35221B382ED6D19700300CFC /* MyGuitarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyGuitarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		35221B422ED6D19700300CFC /* MyGuitarUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyGuitarUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		35221B5D2ED6D21400300CFC /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +80,7 @@
 		35221B222ED6D19600300CFC = {
 			isa = PBXGroup;
 			children = (
+				35221B5D2ED6D21400300CFC /* .gitignore */,
 				35221B2D2ED6D19600300CFC /* MyGuitarApp */,
 				35221B3B2ED6D19700300CFC /* MyGuitarAppTests */,
 				35221B452ED6D19700300CFC /* MyGuitarAppUITests */,
@@ -85,9 +91,9 @@
 		35221B2C2ED6D19600300CFC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				35221B2B2ED6D19600300CFC /* MyGuitarApp.app */,
-				35221B382ED6D19700300CFC /* MyGuitarAppTests.xctest */,
-				35221B422ED6D19700300CFC /* MyGuitarAppUITests.xctest */,
+				35221B2B2ED6D19600300CFC /* MyGuitar.app */,
+				35221B382ED6D19700300CFC /* MyGuitarTests.xctest */,
+				35221B422ED6D19700300CFC /* MyGuitarUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,9 +101,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		35221B2A2ED6D19600300CFC /* MyGuitarApp */ = {
+		35221B2A2ED6D19600300CFC /* MyGuitar */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 35221B4C2ED6D19700300CFC /* Build configuration list for PBXNativeTarget "MyGuitarApp" */;
+			buildConfigurationList = 35221B4C2ED6D19700300CFC /* Build configuration list for PBXNativeTarget "MyGuitar" */;
 			buildPhases = (
 				35221B272ED6D19600300CFC /* Sources */,
 				35221B282ED6D19600300CFC /* Frameworks */,
@@ -110,16 +116,16 @@
 			fileSystemSynchronizedGroups = (
 				35221B2D2ED6D19600300CFC /* MyGuitarApp */,
 			);
-			name = MyGuitarApp;
+			name = MyGuitar;
 			packageProductDependencies = (
 			);
 			productName = MyGuitarApp;
-			productReference = 35221B2B2ED6D19600300CFC /* MyGuitarApp.app */;
+			productReference = 35221B2B2ED6D19600300CFC /* MyGuitar.app */;
 			productType = "com.apple.product-type.application";
 		};
-		35221B372ED6D19700300CFC /* MyGuitarAppTests */ = {
+		35221B372ED6D19700300CFC /* MyGuitarTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 35221B4F2ED6D19700300CFC /* Build configuration list for PBXNativeTarget "MyGuitarAppTests" */;
+			buildConfigurationList = 35221B4F2ED6D19700300CFC /* Build configuration list for PBXNativeTarget "MyGuitarTests" */;
 			buildPhases = (
 				35221B342ED6D19700300CFC /* Sources */,
 				35221B352ED6D19700300CFC /* Frameworks */,
@@ -133,16 +139,16 @@
 			fileSystemSynchronizedGroups = (
 				35221B3B2ED6D19700300CFC /* MyGuitarAppTests */,
 			);
-			name = MyGuitarAppTests;
+			name = MyGuitarTests;
 			packageProductDependencies = (
 			);
 			productName = MyGuitarAppTests;
-			productReference = 35221B382ED6D19700300CFC /* MyGuitarAppTests.xctest */;
+			productReference = 35221B382ED6D19700300CFC /* MyGuitarTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		35221B412ED6D19700300CFC /* MyGuitarAppUITests */ = {
+		35221B412ED6D19700300CFC /* MyGuitarUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 35221B522ED6D19700300CFC /* Build configuration list for PBXNativeTarget "MyGuitarAppUITests" */;
+			buildConfigurationList = 35221B522ED6D19700300CFC /* Build configuration list for PBXNativeTarget "MyGuitarUITests" */;
 			buildPhases = (
 				35221B3E2ED6D19700300CFC /* Sources */,
 				35221B3F2ED6D19700300CFC /* Frameworks */,
@@ -156,11 +162,11 @@
 			fileSystemSynchronizedGroups = (
 				35221B452ED6D19700300CFC /* MyGuitarAppUITests */,
 			);
-			name = MyGuitarAppUITests;
+			name = MyGuitarUITests;
 			packageProductDependencies = (
 			);
 			productName = MyGuitarAppUITests;
-			productReference = 35221B422ED6D19700300CFC /* MyGuitarAppUITests.xctest */;
+			productReference = 35221B422ED6D19700300CFC /* MyGuitarUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -186,7 +192,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 35221B262ED6D19600300CFC /* Build configuration list for PBXProject "MyGuitarApp" */;
+			buildConfigurationList = 35221B262ED6D19600300CFC /* Build configuration list for PBXProject "MyGuitar" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -200,9 +206,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				35221B2A2ED6D19600300CFC /* MyGuitarApp */,
-				35221B372ED6D19700300CFC /* MyGuitarAppTests */,
-				35221B412ED6D19700300CFC /* MyGuitarAppUITests */,
+				35221B2A2ED6D19600300CFC /* MyGuitar */,
+				35221B372ED6D19700300CFC /* MyGuitarTests */,
+				35221B412ED6D19700300CFC /* MyGuitarUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -236,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35221B5E2ED6D21700300CFC /* .gitignore in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,12 +265,12 @@
 /* Begin PBXTargetDependency section */
 		35221B3A2ED6D19700300CFC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 35221B2A2ED6D19600300CFC /* MyGuitarApp */;
+			target = 35221B2A2ED6D19600300CFC /* MyGuitar */;
 			targetProxy = 35221B392ED6D19700300CFC /* PBXContainerItemProxy */;
 		};
 		35221B442ED6D19700300CFC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 35221B2A2ED6D19600300CFC /* MyGuitarApp */;
+			target = 35221B2A2ED6D19600300CFC /* MyGuitar */;
 			targetProxy = 35221B432ED6D19700300CFC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -472,7 +479,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyGuitarApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyGuitarApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyGuitar.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyGuitar";
 			};
 			name = Debug;
 		};
@@ -494,7 +501,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyGuitarApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyGuitarApp";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyGuitar.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MyGuitar";
 			};
 			name = Release;
 		};
@@ -541,7 +548,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		35221B262ED6D19600300CFC /* Build configuration list for PBXProject "MyGuitarApp" */ = {
+		35221B262ED6D19600300CFC /* Build configuration list for PBXProject "MyGuitar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				35221B4A2ED6D19700300CFC /* Debug */,
@@ -550,7 +557,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		35221B4C2ED6D19700300CFC /* Build configuration list for PBXNativeTarget "MyGuitarApp" */ = {
+		35221B4C2ED6D19700300CFC /* Build configuration list for PBXNativeTarget "MyGuitar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				35221B4D2ED6D19700300CFC /* Debug */,
@@ -559,7 +566,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		35221B4F2ED6D19700300CFC /* Build configuration list for PBXNativeTarget "MyGuitarAppTests" */ = {
+		35221B4F2ED6D19700300CFC /* Build configuration list for PBXNativeTarget "MyGuitarTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				35221B502ED6D19700300CFC /* Debug */,
@@ -568,7 +575,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		35221B522ED6D19700300CFC /* Build configuration list for PBXNativeTarget "MyGuitarAppUITests" */ = {
+		35221B522ED6D19700300CFC /* Build configuration list for PBXNativeTarget "MyGuitarUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				35221B532ED6D19700300CFC /* Debug */,
