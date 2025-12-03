@@ -59,6 +59,84 @@ MyGuitarApp
         └── SettingsView.swift    // 설정 탭 화면
 ```
 
+## 플로우 차트
+
+```
+flowchart TD
+
+%% ====== MAIN TAB STRUCTURE ======
+A[MyGuitarAppApp (App Entry)] --> B[MainTabView]
+
+B --> T1[Songs 탭]
+B --> T2[Favorites 탭]
+B --> T3[Settings 탭]
+
+
+%% ===== SONGS TAB =====
+T1 --> S1[SongsRootView<br/>곡 리스트 화면]
+
+S1 -->|NavigationLink| S2[SongDetailView<br/>곡 상세 화면]
+
+S1 -->|+ 버튼| S3[AddSongView<br/>곡 추가 입력 폼]
+
+S1 -->|Delete (스와이프)| SR2[SongViewModel.deleteSong]
+S1 -->|onAppear / refresh| SR1[SongViewModel.loadSongs]
+
+%% AddSongView
+S3 -->|저장 onSave| SR3[SongViewModel.addSong → Supabase POST]
+S3 -->|저장 후| S1
+
+
+%% ===== SONG DETAIL (SCORES) =====
+S2 --> SS1[ScoreViewModel.loadScores<br/>→ Supabase GET]
+
+S2 -->|악보 추가| SS2[ScoreSectionView - AddScore]
+SS2 -->|버전/악기 입력| SS3[ScoreViewModel.addScore<br/>→ Supabase POST]
+
+S2 -->|악보 삭제| SS4[ScoreViewModel.deleteScore<br/>→ Supabase DELETE]
+
+%% ===== NOTES =====
+S2 -->|Score 선택(향후)| N1[NoteListView<br/>샘플 음표 리스트]
+N1 --> N2[Supabase GET /notes]
+
+%% ===== FAVORITES TAB =====
+T2 --> F1[FavoritesView<br/>즐겨찾기 목록]
+
+F1 -->|onAppear| SR1F[SongViewModel.loadSongs + FavoriteManager.load]
+
+S2 -->|⭐ 버튼| F2[FavoriteManager.toggle(songId)]
+F2 --> F1
+
+%% ===== SETTINGS TAB =====
+T3 --> ST1[SettingsView<br/>다크모드 등 설정]
+
+ST1 --> ST2[@AppStorage(dark_mode) 변경]
+ST2 --> A
+
+
+%% ===== SUPABASE =====
+SR1 --> DB1[(Supabase<br/>songs)]
+SR2 --> DB1
+SR3 --> DB1
+
+SS1 --> DB2[(Supabase<br/>scores)]
+SS3 --> DB2
+SS4 --> DB2
+
+N2 --> DB3[(Supabase<br/>notes)]
+
+
+%% VISUAL STYLE
+classDef view fill:#1E90FF,stroke:#0b4b8c,stroke-width:1,color:#fff;
+classDef model fill:#F39C12,stroke:#c27a0e,stroke-width:1,color:#fff;
+classDef repo fill:#27AE60,stroke:#1c8044,stroke-width:1,color:#fff;
+classDef db fill:#8e44ad,stroke:#5e2d7d,stroke-width:1,color:#fff;
+
+class A,B,T1,T2,T3,S1,S2,S3,N1,F1 ST1 view;
+class SR1,SR2,SR3,SR1F,SS1,SS2,SS3,SS4 model;
+class DB1,DB2,DB3 db;
+```
+
 ## 필수 제한 요소 / 주요 기능
 
 > 필수 제한 요소 사용
