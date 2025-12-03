@@ -61,7 +61,6 @@ MyGuitarApp
 
 ## 플로우 차트
 
-```
 flowchart TD
 
 %% ====== MAIN TAB STRUCTURE ======
@@ -135,7 +134,7 @@ classDef db fill:#8e44ad,stroke:#5e2d7d,stroke-width:1,color:#fff;
 class A,B,T1,T2,T3,S1,S2,S3,N1,F1 ST1 view;
 class SR1,SR2,SR3,SR1F,SS1,SS2,SS3,SS4 model;
 class DB1,DB2,DB3 db;
-```
+
 
 ## 필수 제한 요소 / 주요 기능
 
