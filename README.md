@@ -10,7 +10,10 @@ Supabase에 저장된 곡/악보 메타 정보를 불러와서 보여주고,
 - Settings 화면에서 앱 환경 일부 설정
 - 향후 확장: 악보(Notes) 그래픽 출력, 마이크 입력을 통한 연주 인식 및 자동 진행
 
-https://www.google.com/imgres?q=기타%20앱&imgurl=https%3A%2F%2Fplay-lh.googleusercontent.com%2FBsyYU7ruOVD35cj9S5MpFfci5JQgp7CrMW8uCLFvVL_PuZ5hRQxSyPGQpPR2m2sEa0o%3Dw526-h296-rw&imgrefurl=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.gismart.guitar%26hl%3Dko&docid=s-Cehy1fsIKxuM&tbnid=X_rG18XjwRuc1M&vet=12ahUKEwiIwMeR0aCRAxXYr1YBHUeFErYQM3oECCgQAA..i&w=526&h=296&hcb=2&ved=2ahUKEwiIwMeR0aCRAxXYr1YBHUeFErYQM3oECCgQAA<img width="299" height="168" alt="image" src="https://github.com/user-attachments/assets/a8040997-9a3c-40cc-8f56-13b2d6fd58aa" />
+- 목표 예시
+https://www.google.com/imgres?q=기타%20앱&imgurl=https%3A%2F%2Fplay-lh.googleusercontent.com%2FBsyYU7ruOVD35cj9S5MpFfci5JQgp7CrMW8uCLFvVL_PuZ5hRQxSyPGQpPR2m2sEa0o%3Dw526-h296-rw&imgrefurl=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.gismart.guitar%26hl%3Dko&docid=s-Cehy1fsIKxuM&tbnid=X_rG18XjwRuc1M&vet=12ahUKEwiIwMeR0aCRAxXYr1YBHUeFErYQM3oECCgQAA..i&w=526&h=296&hcb=2&ved=2ahUKEwiIwMeR0aCRAxXYr1YBHUeFErYQM3oECCgQAA
+
+<img width="299" height="168" alt="image" src="https://github.com/user-attachments/assets/a8040997-9a3c-40cc-8f56-13b2d6fd58aa" />
 
 
 ## 프로젝트 구조
