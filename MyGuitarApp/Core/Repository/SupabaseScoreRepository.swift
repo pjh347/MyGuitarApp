@@ -4,6 +4,7 @@ import Foundation
 
 final class SupabaseScoreRepository: ScoreRepository {
 
+    // MARK: -REQUEST
     private func makeRequest(url: URL,
                              method: String,
                              body: Data? = nil) -> URLRequest {
@@ -20,6 +21,7 @@ final class SupabaseScoreRepository: ScoreRepository {
         return request
     }
 
+    // MARK: -FETCH
     func fetchScores(for songId: UUID) async throws -> [Score] {
         let url = SongApiConfig.scoresURL(forSongId: songId)
         let request = makeRequest(url: url, method: "GET")
@@ -37,6 +39,7 @@ final class SupabaseScoreRepository: ScoreRepository {
         return try decoder.decode([Score].self, from: data)
     }
 
+    // MARK: -ADD
     func addScore(_ score: Score) async throws -> Score {
         let body = try JSONEncoder().encode(score)
         let request = makeRequest(url: SongApiConfig.scoresBaseURL,
@@ -60,7 +63,7 @@ final class SupabaseScoreRepository: ScoreRepository {
             return score
         }
     }
-
+    // MARK: -DELETE
     func deleteScore(id: UUID) async throws {
         var components = URLComponents(url: SongApiConfig.scoresBaseURL, resolvingAgainstBaseURL: false)!
         components.queryItems = [

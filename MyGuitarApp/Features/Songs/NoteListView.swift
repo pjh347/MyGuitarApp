@@ -1,4 +1,5 @@
 // NoteListView.swift
+// 음표 출력 화면 (이후 연결 예정)
 
 import SwiftUI
 import Foundation

@@ -4,6 +4,7 @@ import Foundation
 
 final class SupabaseSongRepository: SongRepository {
 
+    // MARK: -REQUEST
     private func makeRequest(url: URL,
                              method: String,
                              body: Data? = nil) -> URLRequest {
@@ -19,7 +20,8 @@ final class SupabaseSongRepository: SongRepository {
         }
         return request
     }
-
+    
+    // MARK: -FETCH
     func fetchSongs() async throws -> [Song] {
         let request = makeRequest(url: SongApiConfig.songsURL, method: "GET")
         let (data, response) = try await URLSession.shared.data(for: request)
@@ -36,6 +38,7 @@ final class SupabaseSongRepository: SongRepository {
         return try decoder.decode([Song].self, from: data)
     }
 
+    // MARK: -ADD
     func addSong(_ song: Song) async throws -> Song {
         let body = try JSONEncoder().encode(song)
         let request = makeRequest(url: SongApiConfig.songsBaseURL,
@@ -62,6 +65,7 @@ final class SupabaseSongRepository: SongRepository {
         }
     }
 
+    // MARK: -DELETE
     func deleteSong(id: UUID) async throws {
         // /songs?id=eq.<uuid>
         var components = URLComponents(url: SongApiConfig.songsBaseURL, resolvingAgainstBaseURL: false)!

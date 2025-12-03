@@ -17,6 +17,7 @@ final class ScoreViewModel {
     private var _scores: [Score] = []
     var scores: [Score] { _scores }
 
+    // MARK: -LOAD
     func loadScores() async {
         do {
             _scores = try await repository.fetchScores(for: song.id)
@@ -25,6 +26,7 @@ final class ScoreViewModel {
         }
     }
 
+    // MARK: -ADD
     func addScore(version: String?, instrument: String?) async {
         let newScore = Score(
             id: UUID(),
@@ -42,6 +44,7 @@ final class ScoreViewModel {
         }
     }
 
+    // MARK: -DELETE
     func deleteScore(at offsets: IndexSet) async {
         for index in offsets {
             let score = _scores[index]

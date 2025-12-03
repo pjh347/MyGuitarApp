@@ -14,6 +14,7 @@ final class SongViewModel {
     private var _songs: [Song] = []
     var songs: [Song] { _songs }
 
+    // MARK: -LOAD
     func loadSongs() async {
         do {
             _songs = try await repository.fetchSongs()
@@ -22,6 +23,7 @@ final class SongViewModel {
         }
     }
 
+    // MARK: -ADD
     func addSong(title: String,
                  artist: String?,
                  bpm: Int?,
@@ -43,6 +45,7 @@ final class SongViewModel {
         }
     }
 
+    // MARK: -DELETE
     func deleteSong(at offsets: IndexSet) async {
         for index in offsets {
             let song = _songs[index]

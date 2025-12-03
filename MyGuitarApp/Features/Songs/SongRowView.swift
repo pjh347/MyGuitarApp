@@ -1,4 +1,5 @@
 // SongRowView.swift
+// SongRowView: 단순 List 출력 -> 카드로 출력 예정
 
 import SwiftUI
 
@@ -21,7 +22,7 @@ struct SongRowView: View {
                     .font(.title2)
             }
             
-            // (미리보기 자리) - 지금은 Placeholder
+            // 미리보기 자리
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
                     .strokeBorder(.gray.opacity(0.3), lineWidth: 1)

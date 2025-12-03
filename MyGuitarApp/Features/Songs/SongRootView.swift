@@ -1,4 +1,5 @@
 // SongRootView.swift
+// Songs TabView
 
 import SwiftUI
 
@@ -9,8 +10,10 @@ struct SongsRootView: View {
 
     var body: some View {
         NavigationStack {
+            // song List 출력
             List {
                 ForEach(viewModel.songs) { song in
+                    // 아이템을 선택하면 SongDetailView 출력
                     NavigationLink {
                         SongDetailView(song: song)
                     } label: {
@@ -23,6 +26,7 @@ struct SongsRootView: View {
                         }
                     }
                 }
+                // 삭제 (viewModel이 처리)
                 .onDelete { offsets in
                     Task {
                         await viewModel.deleteSong(at: offsets)
@@ -30,6 +34,7 @@ struct SongsRootView: View {
                 }
             }
             .navigationTitle("Songs")
+            // toolbar(Song 추가 버튼)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -39,7 +44,9 @@ struct SongsRootView: View {
                     }
                 }
             }
+            // AddSongView 출력
             .sheet(isPresented: $showingAddSong) {
+                // AddSongView의 onSave 구현체 (입력 받은 데이터를 viewModel이 DB에 저장하는 구조)
                 AddSongView { title, artist, bpm, difficulty in
                     Task {
                         await viewModel.addSong(
