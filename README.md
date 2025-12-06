@@ -1,208 +1,163 @@
-# 앱 목표 / 개요
+# 🎸 MyGuitar – Supabase 기반 기타 연습 앱
 
-Supabase에 저장된 곡/악보 메타 정보를 불러와서 보여주고,
-사용자가 직접 곡 및 악보 메타를 추가/삭제,
-기타 연습을 위한 앱
+Supabase에 저장된 곡(Song) 과 악보 메타(Score) 정보를 불러와 보여주고,
+사용자가 원하는 곡을 직접 추가 / 삭제 / 즐겨찾기 할 수 있도록 제공.
+기타 연습 앱으로 확장하기 위한 기반 구현 진행.
+악보 그래픽 출력, 마이크 입력 연주 인식 기능은 향후 제공 예정.
 
-- 곡(Song) 목록 조회 / 추가 / 삭제
-- 곡별 악보 메타(Score: 버전, 악기 등) 조회 / 추가 / 삭제
-- 즐겨찾기(Favorites) 기능
-- Settings 화면에서 앱 환경 일부 설정
-- 향후 확장: 악보(Notes) 그래픽 출력, 마이크 입력을 통한 연주 인식 및 자동 진행
+## 🎯 앱 목표 / 개요
 
-- 목표 예시
-  
-https://www.google.com/imgres?q=기타%20앱&imgurl=https%3A%2F%2Fplay-lh.googleusercontent.com%2FBsyYU7ruOVD35cj9S5MpFfci5JQgp7CrMW8uCLFvVL_PuZ5hRQxSyPGQpPR2m2sEa0o%3Dw526-h296-rw&imgrefurl=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.gismart.guitar%26hl%3Dko&docid=s-Cehy1fsIKxuM&tbnid=X_rG18XjwRuc1M&vet=12ahUKEwiIwMeR0aCRAxXYr1YBHUeFErYQM3oECCgQAA..i&w=526&h=296&hcb=2&ved=2ahUKEwiIwMeR0aCRAxXYr1YBHUeFErYQM3oECCgQAA
+Supabase에 저장된 곡/악보 메타 정보를 불러와 표시.
+사용자가 곡 및 악보 메타를 직접 추가/삭제하도록 제공.
+즐겨찾기 기능 제공. 설정 화면 제공.
+향후 확장 기능으로는
+악보 미리보기 / 프렛보드 기반 출력 / 마이크 입력 및 연주 인식 기능을 제공할 예정.
+제공 기능
+곡(Song) 목록 조회 / 추가 / 삭제 제공
+곡별 Score(악보 버전) 목록 조회 / 추가 / 삭제 제공
+즐겨찾기(Favorites) 기능 제공
+Settings 화면 제공
+향후 확장: Notes 기반 악보 출력 · 마이크 입력 연주 인식 기능 제공
 
-<img width="299" height="168" alt="image" src="https://github.com/user-attachments/assets/a8040997-9a3c-40cc-8f56-13b2d6fd58aa" />
+## 📂 프로젝트 구조
 
-
-## 프로젝트 구조
-
-```
 MyGuitarApp
 ├── App
-│   ├── MyGuitarAppApp.swift     // @main, 앱 진입점
-│   └── MainTabView.swift        // TabView (Songs / Favorites / Settings)
+│   ├── MyGuitarAppApp.swift     
+│   │   → 앱 진입점. @main. 다크모드 설정 제공.
+│   └── MainTabView.swift        
+│       → TabView 구성 제공. Songs / Favorites / Settings 탭 제공.
 │
 ├── Core
 │   ├── API
-│   │   └── SongApiConfig.swift  // Supabase REST API URL & API Key
+│   │   └── SongApiConfig.swift  
+│   │       → Supabase REST API URL & API Key 제공.
 │   │
 │   ├── Model
-│   │   ├── Song.swift           // 곡 정보 모델
-│   │   ├── Score.swift          // 악보 메타 정보 모델
-│   │   └── Note.swift           // 음표 정보 모델 (샘플 읽기용)
+│   │   ├── Song.swift           
+│   │   │   → songs 테이블 모델. 기본 정보(title, artist 등) 제공.
+│   │   ├── Score.swift          
+│   │   │   → scores 테이블 모델. 악보 버전/악기 정보 제공.
+│   │   └── Note.swift           
+│   │       → notes 테이블 모델. (샘플 노출용)
 │   │
 │   └── Repository
-│       ├── SongRepository.swift         // Song용 Repository 프로토콜
-│       ├── SupabaseSongRepository.swift // Supabase Song 구현체
-│       ├── ScoreRepository.swift        // Score용 Repository 프로토콜
-│       └── SupabaseScoreRepository.swift// Supabase Score 구현체
+│       ├── SongRepository.swift         
+│       │   → Song 기능용 Repository 프로토콜 제공.
+│       ├── SupabaseSongRepository.swift 
+│       │   → Supabase 연동 Song 구현체. URLSession 통한 REST API GET/POST/DELETE 제공.
+│       ├── ScoreRepository.swift        
+│       │   → Score 기능용 Repository 프로토콜 제공.
+│       └── SupabaseScoreRepository.swift
+│           → Score 기능 Supabase 구현체 제공.
 │
 └── Features
     ├── Songs
-    │   ├── SongsRootView.swift   // Songs 탭의 메인 화면 (리스트 + 추가/삭제)
-    │   ├── SongDetailView.swift  // 곡 상세 + Score 섹션 + 즐겨찾기 버튼
-    │   ├── SongRowView.swift     // 곡 리스트의 카드 UI
-    │   ├── ScoreSectionView.swift// 곡 상세 화면 내 Score 섹션 (목록 + 추가/삭제)
-    │   ├── NoteListView.swift    // 선택된 Score의 음표 리스트 (샘플 노출용)
-    │   ├── AddSongView.swift     // 새 곡 추가를 위한 입력 폼
-    │   ├── SongViewModel.swift   // 곡 목록/추가/삭제 상태 관리
-    │   └── ScoreViewModel.swift  // 특정 Song의 Score 목록/추가/삭제 관리
+    │   ├── SongsRootView.swift   
+    │   │   → Songs 탭 루트. 곡 목록 로드/삭제/추가 제공.
+    │   ├── SongDetailView.swift  
+    │   │   → 곡 상세 화면. Score 목록/즐겨찾기/삭제 제공.
+    │   ├── SongRowView.swift     
+    │   │   → 곡 리스트 카드 UI 제공.
+    │   ├── ScoreSectionView.swift
+    │   │   → SongDetailView 내 Score 목록/추가/삭제 제공.
+    │   ├── NoteListView.swift    
+    │   │   → Score의 Note 목록 샘플 노출. 그래픽 악보 기반 준비.
+    │   ├── AddSongView.swift     
+    │   │   → 사용자 입력 기반 곡 추가 폼 제공.
+    │   ├── SongViewModel.swift   
+    │   │   → 곡 목록 상태 관리. CRUD 제공.
+    │   └── ScoreViewModel.swift  
+    │       → Score 목록 상태 관리. CRUD 제공.
     │
     ├── Favorites
-    │   ├── FavoriteManager.swift // UserDefaults 기반 즐겨찾기 관리 (ObservableObject)
-    │   └── FavoritesView.swift   // 즐겨찾기 탭 화면 (즐겨찾기 Song만 리스트)
+    │   ├── FavoriteManager.swift 
+    │   │   → UserDefaults 기반 즐겨찾기 ID 저장/조회 제공.
+    │   └── FavoritesView.swift   
+    │       → 즐겨찾기 Song 필터링 리스트 제공.
     │
     └── Settings
-        └── SettingsView.swift    // 설정 탭 화면
-```
+        └── SettingsView.swift    
+            → 앱 환경 설정 제공. 다크모드, 기본 정보 제공.
 
-## 플로우 차트
+# 🔄 플로우 차트 (Mermaid)
+아래는 README에서 그림처럼 렌더링되는 Mermaid 다이어그램 제공.
+## 🗂 Data Flow Diagram
+flowchart TD
 
-```
-MyGuitarAppApp (@main)
-└─ MainTabView             // TabView: Songs / Favorites / Settings
-   ├─ Songs 탭
-   │   └─ SongsRootView
-   │       ├─ onAppear / 당겨서 새로고침
-   │       │   └─ SongViewModel.loadSongs()
-   │       │       └─ SupabaseSongRepository.fetchSongs()
-   │       │           └─ GET /rest/v1/songs  (Supabase)
-   │       │
-   │       ├─ 리스트에서 곡 선택 (NavigationLink)
-   │       │   └─ SongDetailView(song: Song)
-   │       │       ├─ onAppear
-   │       │       │   └─ ScoreViewModel.loadScores()
-   │       │       │       └─ SupabaseScoreRepository.fetchScores(for: song.id)
-   │       │       │           └─ GET /rest/v1/scores?song_id=eq.<song_id>
-   │       │       │
-   │       │       ├─ 악보 섹션(ScoreSectionView)
-   │       │       │   ├─ 악보 추가 버튼
-   │       │       │   │   └─ ScoreViewModel.addScore(version, instrument)
-   │       │       │   │       └─ SupabaseScoreRepository.addScore()
-   │       │       │   │           └─ POST /rest/v1/scores
-   │       │       │   ├─ 악보 삭제 (스와이프)
-   │       │       │   │   └─ ScoreViewModel.deleteScore(at:)
-   │       │       │   │       └─ SupabaseScoreRepository.deleteScore(id:)
-   │       │       │   │           └─ DELETE /rest/v1/scores?id=eq.<score_id>
-   │       │       │   └─ (향후) 악보 선택 시 NoteListView로 이동
-   │       │       │       └─ NoteListView
-   │       │       │           └─ Supabase GET /rest/v1/notes?score_id=eq.<score_id>
-   │       │       │
-   │       │       └─ ⭐ 즐겨찾기 버튼
-   │       │           └─ FavoriteManager.toggle(songId: song.id)
-   │       │               └─ UserDefaults에 즐겨찾기 Song ID 목록 저장
-   │       │
-   │       ├─ + 버튼 (Toolbar)
-   │       │   └─ AddSongView (sheet로 표시)
-   │       │       ├─ 사용자가 제목/아티스트/BPM/난이도 입력
-   │       │       └─ "저장" 누르면 onSave 호출
-   │       │           └─ SongViewModel.addSong(...)
-   │       │               └─ SupabaseSongRepository.addSong()
-   │       │                   └─ POST /rest/v1/songs
-   │       └─ 리스트에서 곡 삭제 (스와이프)
-   │           └─ SongViewModel.deleteSong(at:)
-   │               └─ SupabaseSongRepository.deleteSong(id:)
-   │                   └─ DELETE /rest/v1/songs?id=eq.<song_id>
-   │
-   ├─ Favorites 탭
-   │   └─ FavoritesView
-   │       ├─ onAppear
-   │       │   ├─ FavoriteManager.load()        // UserDefaults에서 즐겨찾기 로드
-   │       │   └─ SongViewModel.loadSongs()     // Supabase에서 songs 로드
-   │       │
-   │       ├─ viewModel.songs 중
-   │       │   FavoriteManager.isFavorite(song.id) == true 인 곡만 필터링
-   │       │
-   │       └─ 곡 선택 (NavigationLink)
-   │           └─ SongDetailView(song: Song)    // 즐겨찾기와 동일한 상세화면 재사용
-   │
-   └─ Settings 탭
-       └─ SettingsView
-           ├─ @AppStorage("dark_mode") 사용
-           │   └─ 다크 모드 토글 상태를 UserDefaults에 저장
-           │
-           └─ MyGuitarAppApp에서
-               └─ @AppStorage("dark_mode") 읽기
-                   └─ .preferredColorScheme(darkMode ? .dark : .light)
-                      → 앱 전체 라이트/다크 테마 적용
-```
+A[사용자] --> B[SwiftUI View 계층<br/>SongsRootView / SongDetailView<br/>ScoreSectionView / NoteListView]
 
-## 필수 제한 요소 / 주요 기능
+B --> C[ViewModel 계층<br/>SongViewModel / ScoreViewModel / NoteViewModel]
 
-> 필수 제한 요소 사용
+C --> D[Repository 인터페이스<br/>SongRepository / ScoreRepository / NoteRepository]
 
-- URLSession
+D --> E[Supabase Repository 구현체<br/>SupabaseSongRepository<br/>SupabaseScoreRepository]
 
-SupabaseSongRepository, SupabaseScoreRepository, NoteListView 등에서
-Supabase REST API 호출에 사용
+E --> F[URLSession<br/>HTTP REST API]
 
-- List
-1. SongsRootView : 곡 리스트
-2. FavoritesView : 즐겨찾기 리스트
-3. SongDetailView : 곡 정보 + Score 목록
-4. NoteListView : 샘플 악보 음표 목록
+F --> G[Supabase REST API 서버]
 
-- NavigationStack / NavigationLink / navigationTitle
+G --> H[Supabase DB<br/>songs / scores / notes]
+## 👤 User Flow Diagram
+Songs 탭 → Detail → Score → Note 흐름
+flowchart TD
 
-1. SongsRootView → SongDetailView 로 이동
-2. FavoritesView → SongDetailView 로 이동
-3. 각 화면 상단 제목에 .navigationTitle() 사용
+A[앱 실행] --> B[MainTabView]
+B --> C[Songs 탭 선택]
+C --> D[SongsRootView<br/>노래 리스트]
+D --> E[곡 선택]
+E --> F[SongDetailView<br/>Score 목록]
+F --> G[Score 선택]
+G --> H[NoteListView<br/>노트 목록]
+H --> I[연습 기능 확장 예정]
+Practice 기반 (확장 예정)
+flowchart TD
 
-- TabView
+A[MainTabView] --> B[Practice 탭]
+B --> C[Score 리스트]
+C --> D[NoteListView]
+D --> E[마이크 입력 기반 연습 제공 예정]
+## 🏗 프로젝트 구조(Architectural Diagram)
+flowchart TD
 
-MainTabView 에서
-1. SongsRootView (Songs 탭)
-2. FavoritesView (즐겨찾기 탭)
-3. SettingsView (설정 탭)
-
-> 주요 기능
-
-- Supabase 연동
-
-songs, scores, notes 테이블과 REST API로 통신
-곡/악보 메타 데이터 로드 및 반영
-
-- Song CRUD
-
-1. 목록 조회: SongViewModel.loadSongs()
-2. 추가: AddSongView + SongViewModel.addSong(...)
-3. 삭제: 리스트 스와이프 → SongViewModel.deleteSong(...)
-
-- Score 메타 CRUD
-1. 조회: ScoreViewModel.loadScores()
-2. 추가: ScoreSectionView의 입력 폼 → ScoreViewModel.addScore(...)
-3. 삭제: Score 리스트 스와이프 → ScoreViewModel.deleteScore(...)
-
-- 즐겨찾기(Favorites)
-
-1. FavoriteManager에서 UserDefaults로 즐겨찾기 Song ID 목록 관리
-2. SongDetailView 우상단 ⭐ 버튼으로 토글
-3. FavoritesView에서 즐겨찾기된 곡만 필터링해서 표시
-
-- Settings
-
-SettingsView에서 앱 정보 및 간단한 설정 관리
-(원하면 다크모드, 색맹 모드 같은 옵션도 추가 가능)
-
-
-## 향후 구현 예정 기능
-
-1. 악보 출력 페이지
-
-notes 테이블의 데이터를 기반으로
-기타 프렛보드 / 타임라인 형태의 그래픽 악보 화면
-
+A[View (SwiftUI)] --> B[ViewModel]
+B --> C[Repository Interface]
+C --> D[Supabase Repository 구현체]
+D --> E[URLSession]
+E --> F[Supabase REST API]
+F --> G[Supabase DB]
+# ⚙️ 필수 제한 요소 / 기능 구현
+URLSession 사용
+SupabaseSongRepository, SupabaseScoreRepository에서 REST API 요청 처리.
+GET / POST / DELETE 제공.
+List 사용
+SongsRootView, FavoritesView, SongDetailView, NoteListView 등에서 사용.
+NavigationStack / NavigationLink / navigationTitle
+SongsRootView → SongDetailView 이동 제공.
+FavoritesView → SongDetailView 이동 제공.
+TabView
+MainTabView에서 Songs / Favorites / Settings 탭 제공.
+# 🔧 주요 제공 기능
+🎵 Song CRUD
+조회: SongViewModel.loadSongs()
+추가: AddSongView → SongViewModel.addSong()
+삭제: 스와이프 → deleteSong()
+🎼 Score CRUD
+조회: ScoreViewModel.loadScores()
+추가: ScoreSectionView → addScore()
+삭제: deleteScore()
+⭐ Favorites
+FavoriteManager(UserDefaults) 기반
+SongDetailView에서 즐겨찾기 토글
+FavoritesView에서 즐겨찾기 Song만 필터링
+⚙ Settings
+@AppStorage 기반 다크모드 저장/적용
+앱 환경 제공
+# 🚧 향후 제공 예정 기능
+1. 악보 출력 페이지 확장
+프렛보드 / 타임라인 그래픽 UI 제공 예정.
 2. 마이크 입력 처리
-
-마이크로부터 현재 음(pitch)을 실시간 인식
-MIDI 번호(pitch_midi) 로 변환
-
-3. 마이크 입력과 악보 진행 연동
-
-현재 재생해야 할 음표의 pitch_midi와 비교
-사용자의 입력이 맞으면 다음 음표로 진행
-틀리면 피드백 제공
-
+AudioKit 또는 CoreAudio 기반 pitch 인식 제공 예정.
+3. 악보 자동 진행
+사용자 입력 MIDI 번호와 악보의 pitch_midi 비교 후
+맞으면 다음 음표로 자동 진행 제공 예정.
