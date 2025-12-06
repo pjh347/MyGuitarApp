@@ -97,122 +97,163 @@ MyGuitarApp
 
 # 🔍 파일별 상세 기능 설명
 
-### 📌App 계층
-   
-#### MyGuitarApp.swift
-- @main 앱 시작점 제공.
-- @AppStorage("darkMode") 로 라이트/다크 테마 제공.
-- MainTabView 로 앱 UI 전개.
-  
-#### MainTabView.swift
-- TabView 구성 제공.
-- Songs / Tuning / Practice / Favorites / Settings 탭 제공.
-- 각 탭에 NavigationStack 적용.
+### 📌 App 계층
 
-### 📌Model 계층
+#### MyGuitarApp.swift
+- 앱 전체의 @main 시작점 제공.
+- @AppStorage("darkMode") 로 전역 라이트/다크 테마 적용.
+- WindowGroup 내부에서 MainTabView() 호출하여 전체 UI 전개.
+- SwiftUI 환경값 설정의 루트 역할 수행.
+
+#### MainTabView.swift
+- 앱의 핵심 구조인 TabView 구성 제공.
+- Songs / Tuning / Practice / Favorites / Settings 총 5개 탭 제공.
+- 각 탭 화면은 자체적으로 NavigationStack을 포함하여 화면 이동 지원.
+- 앱 전체 네비게이션 구조의 뼈대 역할.
+
+### 📌 Model 계층
 
 #### Song.swift
-- Supabase songs 테이블 매핑 제공.
-- id / title / artist / bpm / difficulty / created_at 포함.
+- Supabase songs 테이블과 1:1 매핑되는 데이터 모델.
+- title, artist, bpm, difficulty, createdAt 등 기본 필드 보유.
+- Codable + Identifiable 지원하여 네트워크 디코딩 및 SwiftUI 리스트에서 사용.
 
 #### Score.swift
-- Supabase scores 테이블 매핑 제공.
-- 특정 곡의 버전/악기 정보 제공.
+- Supabase scores 테이블 모델.
+- version, instrument, order, songId 필드 보유.
+- 특정 곡(Song)에 속한 악보 버전 메타데이터 표현.
 
 #### Note.swift
-- Supabase notes 테이블 매핑 제공.
-- 악보 상세 음표(start_time, duration, pitch_midi 등) 제공.
+- Supabase notes 테이블 모델.
+- start_time, duration, pitch_midi, string_num, fret 등 악보 상세 음표 정보 포함.
+- 연습 화면의 시간 기반 재생 및 판단 로직의 핵심 데이터.
 
-### 📌Repository 계층
+### 📌 Repository 계층
 
 #### SongRepository.swift / ScoreRepository.swift / NoteRepository.swift
-- ViewModel이 의존하는 상위 추상화 제공.
-- SupabaseSongRepository.swift
-- GET / POST / DELETE 구현 제공.
+- MVVM 계층 분리 원칙을 위한 추상화 인터페이스 제공.
+- ViewModel은 구현체가 아니라 프로토콜에 의존 → 테스트 용이 / 교체 용이.
 
-#### SupabaseSongRepository.swift / SupabaseScoreRepository.swift
-- GET / POST / DELETE 구현 제공.
+#### SupabaseSongRepository.swift
+- SongRepository 실제 구현.
+- URLSession으로 Supabase REST API 호출 (GET/POST/DELETE).
+- 데이터 JSON decoder → Song 배열로 변환하여 반환.
+
+#### SupabaseScoreRepository.swift
+- ScoreRepository 구현체.
+- 특정 Song에 속한 Score 목록 로딩, 생성, 삭제 처리.
+- Data Flow: ScoreSectionView → ScoreViewModel → ScoreRepository → Supabase.
 
 #### SupabaseNoteRepository.swift
-- 특정 Score의 Note 리스트 로딩 제공.
+- 특정 Score의 Note 리스트 로딩 제공 (GET /notes).
+- 연습 화면에서 NoteViewModel이 이 구현체를 사용하여 데이터 초기화.
 
-### 📌ViewModel 계층
+### 📌 ViewModel 계층
 
 #### SongViewModel
-- 곡 리스트 로딩 제공.
-- 곡 추가/삭제 제공.
-- @Published 상태로 View 리렌더링 제공.
+- 곡 리스트 로딩(loadSongs) 제공.
+- SupabaseSongRepository를 통해 CRUD 수행.
+- 곡 추가(addSong), 삭제(deleteSong) 기능 제공.
+- @Published songs → SongsRootView가 자동 리렌더링.
 
 #### ScoreViewModel
-- Score 목록 로딩 제공.
-- Score 추가/삭제 제공.
+- 특정 Song에 속한 Score 목록 로딩(loadScores) 기능 제공.
+- Score 추가(addScore) 및 삭제(deleteScore) 제공.
+- ScoreSectionView가 사용하는 데이터 소스 역할.
 
 #### NoteViewModel
-- Note 리스트 로딩 제공.
-- 현재 연습 중 음표 인덱스 관리 제공.
-- 정답 판정 및 자동 진행 로직 제공.
+- 특정 Score의 Note 리스트 로딩(loadNotes) 제공.
+- 현재 연습 중 음표 index 관리.
+- handleUserPlayed(midi) 로 사용자 입력 판정 → 자동 진행 로직 제공.
+- Practice 기능 전체를 관장하는 핵심 로직.
 
 #### SongPreviewModel
-- SongRowView에서 사용하는 프렛보드 미리보기 데이터 제공.
+- SongRowView에서 사용되는 “미니 탭 프리뷰” 데이터 생성.
+- 첫 수 음표만 추출하여 MiniGuitarTabView에 표시.
 
-### 📌Songs Feature
+### 📌 Songs Feature (곡 관리 전체)
 
 #### SongsRootView
-- Supabase에서 곡 리스트 불러와 표시 제공.
-- NavigationLink → SongDetailView 이동 제공.
-- 곡 추가 버튼(AddSongView) 제공.
+- Songs 탭 메인 화면.
+- onAppear/.task 에서 SongViewModel.loadSongs() 호출 → Supabase fetch.
+- List 형태로 곡 목록 표시.
+- 곡 선택 시 → SongDetailView 로 Navigation.
+- 오른쪽 + 버튼으로 AddSongView sheet 표시.
 
 #### SongRowView
-- 노래 리스트에서 카드 형태 표시 제공.
-- MiniGuitarTabView 프리뷰 제공.
+- 곡 리스트에서 카드 형태 UI 제공.
+- 제목/아티스트 + 프리뷰 악보 표시.
+- SongPreviewModel로 미리보기 데이터 생성 → MiniGuitarTabView에 표시.
 
 #### SongDetailView
-- 곡 상세 정보 제공.
-- Score 목록 제공.
-- 즐겨찾기 버튼 제공.
-- ScoreSectionView 포함.
+- 선택된 Song의 상세 정보 출력.
+- onAppear에서 ScoreViewModel.loadScores() 실행 → Score 목록 로딩.
+- 즐겨찾기 버튼(FavoriteManager 연동) 제공.
+- ScoreSectionView 포함 → Score CRUD 화면을 구성.
 
 #### ScoreSectionView
-- Score 리스트 표시 제공.
-- 추가/삭제 기능 제공.
-- NoteListView 연결 제공.
+- Score 리스트 UI 섹션.
+- Score 추가(addScore) / 삭제(deleteScore) 기능 제공.
+- 각 Score 선택 시 NoteListView(연습 화면)로 이동.
+- Data Flow: ScoreSectionView → ScoreViewModel → SupabaseScoreRepository.
 
 #### AddSongView
-- 곡 추가 폼 제공.
-- dismiss + onSave 패턴 제공.
+- 신규 곡 입력 폼 제공.
+- 제목/아티스트/BPM/난이도 입력.
+- onSave 콜백으로 SongViewModel.addSong 호출.
+- sheet dismiss 로 화면 복귀.
 
-### 📌Practice Feature
+### 📌 Practice Feature (연습 기능 전체)
 
 #### PracticeRootView
-- 연습 탭 루트 제공.
+- Practice 탭 루트 화면.
+- ScoreListForPracticeView 를 포함하여 연습 가능한 Score 목록 표시.
 
 #### ScoreListForPracticeView
-- 연습 가능한 Score 리스트 제공.
+- SupabaseScoreRepository를 통해 로딩된 Score 목록 표시.
+- Score 선택 시 NoteListView로 이동.
 
 #### ScoreView
-- 하나의 악보 전체를 시간 순서대로 시각화 제공.
+- Notes를 타임라인 기반으로 전체 악보처럼 시각화.
+- 향후 그래픽 악보 UI로 확장 예정.
 
 #### NoteListView
-- 연습 메인 화면 제공.
-- NoteViewModel 기반 자동 재생 흐름 제공.
+- 연습 메인 화면.
+- NoteViewModel.loadNotes(scoreId) 로 Note 로딩.
+- currentIndex 기반으로 현재 연습할 음 하이라이트.
+- handleUserPlayed(midi)로 정답 판정 → 다음 음으로 자동 진행.
+- 향후 마이크 입력 흐름과 연결될 핵심 UI.
 
 #### MiniGuitarTabView
-- 하이라이트된 프렛/현 위치 출력 제공.
-- SongRowView에서 악보 미리보기로 사용.
+- 프렛보드 작은 버전 표시.
+- 특정 fret/string 조합을 하이라이트.
+- SongRowView의 악보 미리보기에도 사용됨.
 
-### 📌Favorites Feature
+### 📌 Favorites Feature
 
 #### FavoriteManager
-- UserDefaults 기반 즐겨찾기 ID 배열 저장 제공.
-- add/remove/isFavorite 지원.
+- UserDefaults 기반 즐겨찾기 Song ID 배열 저장/로드.
+- toggle(id), isFavorite(id) 제공.
+- SongDetailView 및 FavoritesView와 연동.
 
 #### FavoritesView
-- favorite 목록만 필터링하여 리스트로 표시 제공.
 
-### 📌Settings Feature
+- 전체 Song 목록에서 FavoriteManager 기반으로 즐겨찾기만 필터링.
+- NavigationLink로 다시 SongDetailView로 이동 가능.
+
+### 📌 Settings  Feature
 
 #### SettingsView
-- 간단한 앱 정보와 다크모드 토글 제공.
+- 앱 정보 및 설정 화면 제공.
+- @AppStorage 기반 다크모드 토글 제공.
+- MyGuitarApp.swift와 연동되어 앱 전체 테마 변경.
+
+### 📌 Tuning Feature
+
+#### TuningView.swift
+- 기타 튜닝 화면 담당.
+- 현재 손상된 상태이지만 구조 상 “튜닝 기능 자리”를 담당하는 파일.
+- TabView의 Tuning 탭에 해당하는 UI.
 
 # 🔄 Data Flow Diagram
 
