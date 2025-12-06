@@ -6,10 +6,14 @@ import SwiftUI
 struct SongRowView: View {
     let song: Song
     
-    // 나중에 Score의 instrument로 바꿀 예정
-    private var instrumentEmoji: String {
-        "🎸"
+    @StateObject private var previewModel: SongPreviewModel
+    
+    init(song: Song) {
+        self.song = song
+        _previewModel = StateObject(wrappedValue: SongPreviewModel(song: song))
     }
+
+    private var instrumentEmoji: String { "🎸" }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -22,15 +26,19 @@ struct SongRowView: View {
                     .font(.title2)
             }
             
-            // 미리보기 자리
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
                     .strokeBorder(.gray.opacity(0.3), lineWidth: 1)
                     .frame(height: 80)
-                
-                Text("악보 미리보기")
-                    .font(.caption)
-                    .foregroundColor(.gray)
+
+                if previewModel.previewNotes.isEmpty {
+                    Text("악보 미리보기 없음")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                } else {
+                    MiniGuitarTabView(notes: previewModel.previewNotes)
+                        .clipped()
+                }
             }
             
             // artist, bpm, difficulty 등 메타 정보
@@ -65,5 +73,9 @@ struct SongRowView: View {
                 .stroke(Color.black.opacity(0.05), lineWidth: 0.5)
         )
         .padding(.vertical, 4)
+        
+        .task {
+            await previewModel.loadPreview()
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct Song: Identifiable, Decodable, Encodable {
+struct Song: Identifiable, Decodable, Encodable, Hashable {
     let id: UUID                 // id: song의 ID
     let title: String            // title: 악보(노래) 제목
     let artist: String?          // artist: 작곡가, NULL 가능 -> Optional

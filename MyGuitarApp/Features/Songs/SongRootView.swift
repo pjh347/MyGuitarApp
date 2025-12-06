@@ -17,13 +17,7 @@ struct SongsRootView: View {
                     NavigationLink {
                         SongDetailView(song: song)
                     } label: {
-                        VStack(alignment: .leading) {
-                            Text(song.title)
-                                .font(.headline)
-                            Text(song.artist ?? "Unknown Artist")
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                        }
+                        SongRowView(song: song) 
                     }
                 }
                 // 삭제 (viewModel이 처리)

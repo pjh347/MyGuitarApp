@@ -10,6 +10,16 @@ struct MainTabView: View {
                 .tabItem {
                     Label("Songs", systemImage: "music.note.list")
                 }
+            
+            TuningView()
+                .tabItem {
+                    Label("Tuning", systemImage: "guitars")
+                }
+            
+            PracticeRootView()
+                .tabItem {
+                    Label("Practice", systemImage: "guitars")
+                }
 
             FavoritesView()
                 .tabItem {

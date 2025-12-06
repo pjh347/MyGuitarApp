@@ -29,14 +29,18 @@ struct ScoreSectionView: View {
         Section("악보") {
             // MARK: -SCORE_LIST_VIEW
             ForEach(scores) { score in
-                HStack {
-                    Text(emoji(for: score.instrument))
-                    VStack(alignment: .leading) {
-                        Text(score.version ?? "기본 버전")
-                        if let inst = score.instrument {
-                            Text(inst)
-                                .font(.caption)
-                                .foregroundColor(.secondary)
+                NavigationLink {
+                    NoteListView(score: score)
+                } label: {
+                    HStack {
+                        Text(emoji(for: score.instrument))
+                        VStack(alignment: .leading) {
+                            Text(score.version ?? "기본 버전")
+                            if let inst = score.instrument {
+                                Text(inst)
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
                         }
                     }
                 }

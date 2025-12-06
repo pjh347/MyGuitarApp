@@ -11,7 +11,7 @@ struct Note: Identifiable, Decodable {
     let pitchHz: Double?    // pitchHz: 피치, NULL 가능 -> Optional( 임시, 이후 내용 추가 예정 )
     let stringNum: Int?     // stringNum:, NULL 가능 -> Optional( 임시, 이후 내용 추가 예정 )
     let fret: Int?          // fret: 플렛, NULL 가능 -> Optional( 임시, 이후 내용 추가 예정 )
-    let createdAt: Date?    // createdAt: 생성 시간, NULL 가능 -> Optional
+    let createdAt: String?    // createdAt: 생성 시간, NULL 가능 -> Optional
     
     // camelCase(App) <-> snake_case(DB) 파싱
     enum CodingKeys: String, CodingKey {
