@@ -244,7 +244,7 @@ D --> E[Song 선택]
 E --> F[SongDetailView]
 F --> G[Score 선택]
 G --> H[NoteListView]
-H --> I[연습 → 자동 진행(향후 마이크 입력)]
+H --> I[연습 단계<br/>향후 마이크 입력 연동]
 ```
 # 🏗 Architecture Diagram (MVVM + Repository)
 ```mermaid
