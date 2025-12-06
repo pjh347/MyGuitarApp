@@ -103,122 +103,122 @@ MyGuitar
 
 # 🔍 파일별 상세 기능 설명
 
-#### App 계층
+### 📌App 계층
    
-- MyGuitarApp.swift
-1. @main 앱 시작점 제공.
-2. @AppStorage("darkMode") 로 라이트/다크 테마 제공.
-3. MainTabView 로 앱 UI 전개.
+#### MyGuitarApp.swift
+- @main 앱 시작점 제공.
+- @AppStorage("darkMode") 로 라이트/다크 테마 제공.
+- MainTabView 로 앱 UI 전개.
   
-- MainTabView.swift
-1. TabView 구성 제공.
-2. Songs / Tuning / Practice / Favorites / Settings 탭 제공.
-3. 각 탭에 NavigationStack 적용.
+#### MainTabView.swift
+- TabView 구성 제공.
+- Songs / Tuning / Practice / Favorites / Settings 탭 제공.
+- 각 탭에 NavigationStack 적용.
 
-#### Model 계층
+### 📌Model 계층
 
-- Song.swift
-1. Supabase songs 테이블 매핑 제공.
-2. id / title / artist / bpm / difficulty / created_at 포함.
+#### Song.swift
+- Supabase songs 테이블 매핑 제공.
+- id / title / artist / bpm / difficulty / created_at 포함.
 
-- Score.swift
-1. Supabase scores 테이블 매핑 제공.
-2. 특정 곡의 버전/악기 정보 제공.
+#### Score.swift
+- Supabase scores 테이블 매핑 제공.
+- 특정 곡의 버전/악기 정보 제공.
 
-- Note.swift
-1. Supabase notes 테이블 매핑 제공.
-2. 악보 상세 음표(start_time, duration, pitch_midi 등) 제공.
+#### Note.swift
+- Supabase notes 테이블 매핑 제공.
+- 악보 상세 음표(start_time, duration, pitch_midi 등) 제공.
 
-#### Repository 계층
+### 📌Repository 계층
 
-- SongRepository.swift / ScoreRepository.swift / NoteRepository.swift
-1. ViewModel이 의존하는 상위 추상화 제공.
-2. SupabaseSongRepository.swift
-3. GET / POST / DELETE 구현 제공.
+#### SongRepository.swift / ScoreRepository.swift / NoteRepository.swift
+- ViewModel이 의존하는 상위 추상화 제공.
+- SupabaseSongRepository.swift
+- GET / POST / DELETE 구현 제공.
 
-- SupabaseScoreRepository.swift
-1. GET / POST / DELETE 구현 제공.
+#### SupabaseSongRepository.swift / SupabaseScoreRepository.swift
+- GET / POST / DELETE 구현 제공.
 
-- SupabaseNoteRepository.swift
-1. 특정 Score의 Note 리스트 로딩 제공.
+#### SupabaseNoteRepository.swift
+- 특정 Score의 Note 리스트 로딩 제공.
 
-#### ViewModel 계층
+### 📌ViewModel 계층
 
-- SongViewModel
-1. 곡 리스트 로딩 제공.
-2. 곡 추가/삭제 제공.
-3. @Published 상태로 View 리렌더링 제공.
+#### SongViewModel
+- 곡 리스트 로딩 제공.
+- 곡 추가/삭제 제공.
+- @Published 상태로 View 리렌더링 제공.
 
-- ScoreViewModel
-1. Score 목록 로딩 제공.
-2. Score 추가/삭제 제공.
+#### ScoreViewModel
+- Score 목록 로딩 제공.
+- Score 추가/삭제 제공.
 
-- NoteViewModel
-1. Note 리스트 로딩 제공.
-2. 현재 연습 중 음표 인덱스 관리 제공.
-3. 정답 판정 및 자동 진행 로직 제공.
+#### NoteViewModel
+- Note 리스트 로딩 제공.
+- 현재 연습 중 음표 인덱스 관리 제공.
+- 정답 판정 및 자동 진행 로직 제공.
 
-- SongPreviewModel
-1. SongRowView에서 사용하는 프렛보드 미리보기 데이터 제공.
+#### SongPreviewModel
+- SongRowView에서 사용하는 프렛보드 미리보기 데이터 제공.
 
-#### Songs Feature
+### 📌Songs Feature
 
-- SongsRootView
-1. Supabase에서 곡 리스트 불러와 표시 제공.
-2. NavigationLink → SongDetailView 이동 제공.
-3. 곡 추가 버튼(AddSongView) 제공.
+#### SongsRootView
+- Supabase에서 곡 리스트 불러와 표시 제공.
+- NavigationLink → SongDetailView 이동 제공.
+- 곡 추가 버튼(AddSongView) 제공.
 
-- SongRowView
-1. 노래 리스트에서 카드 형태 표시 제공.
-2. MiniGuitarTabView 프리뷰 제공.
+#### SongRowView
+- 노래 리스트에서 카드 형태 표시 제공.
+- MiniGuitarTabView 프리뷰 제공.
 
-- SongDetailView
-1. 곡 상세 정보 제공.
-2. Score 목록 제공.
-3. 즐겨찾기 버튼 제공.
-4. ScoreSectionView 포함.
+#### SongDetailView
+- 곡 상세 정보 제공.
+- Score 목록 제공.
+- 즐겨찾기 버튼 제공.
+- ScoreSectionView 포함.
 
-- ScoreSectionView
-1. Score 리스트 표시 제공.
-2. 추가/삭제 기능 제공.
-3. NoteListView 연결 제공.
+#### ScoreSectionView
+- Score 리스트 표시 제공.
+- 추가/삭제 기능 제공.
+- NoteListView 연결 제공.
 
-- AddSongView
-1. 곡 추가 폼 제공.
-2. dismiss + onSave 패턴 제공.
+#### AddSongView
+- 곡 추가 폼 제공.
+- dismiss + onSave 패턴 제공.
 
-#### Practice Feature
+### 📌Practice Feature
 
-- PracticeRootView
-1. 연습 탭 루트 제공.
+#### PracticeRootView
+- 연습 탭 루트 제공.
 
-- ScoreListForPracticeView
-1. 연습 가능한 Score 리스트 제공.
+#### ScoreListForPracticeView
+- 연습 가능한 Score 리스트 제공.
 
-- ScoreView
-1. 하나의 악보 전체를 시간 순서대로 시각화 제공.
+#### ScoreView
+- 하나의 악보 전체를 시간 순서대로 시각화 제공.
 
-- NoteListView
-1. 연습 메인 화면 제공.
-2. NoteViewModel 기반 자동 재생 흐름 제공.
+#### NoteListView
+- 연습 메인 화면 제공.
+- NoteViewModel 기반 자동 재생 흐름 제공.
 
-- MiniGuitarTabView
-1. 하이라이트된 프렛/현 위치 출력 제공.
-2. SongRowView에서 악보 미리보기로 사용.
+#### MiniGuitarTabView
+- 하이라이트된 프렛/현 위치 출력 제공.
+- SongRowView에서 악보 미리보기로 사용.
 
-#### Favorites Feature
+### 📌Favorites Feature
 
-- FavoriteManager
-1. UserDefaults 기반 즐겨찾기 ID 배열 저장 제공.
-2. add/remove/isFavorite 지원.
+#### FavoriteManager
+- UserDefaults 기반 즐겨찾기 ID 배열 저장 제공.
+- add/remove/isFavorite 지원.
 
-- FavoritesView
-1. favorite 목록만 필터링하여 리스트로 표시 제공.
+#### FavoritesView
+- favorite 목록만 필터링하여 리스트로 표시 제공.
 
-#### Settings Feature
+### 📌Settings Feature
 
-- SettingsView
-1. 간단한 앱 정보와 다크모드 토글 제공.
+#### SettingsView
+- 간단한 앱 정보와 다크모드 토글 제공.
 
 # 🔄 Data Flow Diagram
 ```mermaid
