@@ -1,4 +1,4 @@
-// FavoritesView.swift
+// Features/Favorites/FavoritesView.swift
 // FavoritesView(즐겨찾기 TabView)
 
 import SwiftUI

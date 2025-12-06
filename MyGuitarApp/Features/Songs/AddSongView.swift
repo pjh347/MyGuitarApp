@@ -1,4 +1,4 @@
-// AddSongView.swift
+// Features/Songs/AddSongView.swift
 // 노래 추가 화면
 
 import SwiftUI

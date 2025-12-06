@@ -1,4 +1,4 @@
-// FavoriteManager.swift
+// Features/Favorites/FavoriteManager.swift
 // Favorites 관리
 
 import Foundation

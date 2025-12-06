@@ -1,4 +1,4 @@
-// ScoreRepository.swift
+// Core/Repository/ScoreRepository.swift
 
 import Foundation
 

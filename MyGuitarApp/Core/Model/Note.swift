@@ -1,4 +1,4 @@
-// Note.swift
+// Core/Model/Note.swift
 import Foundation
 
 struct Note: Identifiable, Decodable {

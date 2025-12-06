@@ -1,4 +1,4 @@
-// SongApiConfig.example.swift
+// Core/Api/SongApiConfig.example.swift
 
 import Foundation
 

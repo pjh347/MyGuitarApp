@@ -1,4 +1,4 @@
-// NoteListView.swift
+// Features/Notes/NoteListView.swift
 
 import SwiftUI
 import Foundation

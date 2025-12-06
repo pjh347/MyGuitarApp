@@ -1,4 +1,4 @@
-// ScoreViewModel.swift
+// ViewModel/ScoreViewModel.swift
 
 import SwiftUI
 

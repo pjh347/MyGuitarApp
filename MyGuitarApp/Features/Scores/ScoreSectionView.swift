@@ -1,4 +1,4 @@
-// ScoreSectionView.swift
+// Features/Scores/ScoreSectionView.swift
 // SongDetailView에 사용될 악보 section view
 
 import SwiftUI

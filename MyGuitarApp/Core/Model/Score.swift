@@ -1,4 +1,4 @@
-// Score.swift
+// Core/Model/Score.swift
 import Foundation
 
 struct Score: Identifiable, Decodable, Encodable {

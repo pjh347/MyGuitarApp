@@ -1,5 +1,5 @@
-//  MiniGuitarTabView.swift
-// MiniGuitarTabView.swift
+// Features/Songs/MiniGuitarTabView.swift
+
 import SwiftUI
 
 struct MiniGuitarTabView: View {

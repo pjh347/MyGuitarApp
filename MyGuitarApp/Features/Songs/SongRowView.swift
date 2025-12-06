@@ -1,4 +1,4 @@
-// SongRowView.swift
+// Features/Songs/SongRowView.swift
 // SongRowView: 단순 List 출력 -> 카드로 출력 예정
 
 import SwiftUI

@@ -1,4 +1,4 @@
-// SupabaseScoreRepository.swift
+// Core/Repository/SupabaseScoreRepository.swift
 
 import Foundation
 

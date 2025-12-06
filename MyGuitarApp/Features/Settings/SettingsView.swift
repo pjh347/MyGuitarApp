@@ -1,4 +1,4 @@
-// SettingsView.swift
+// Features/Settings/SettingsView.swift
 
 import SwiftUI
 

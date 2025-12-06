@@ -1,4 +1,4 @@
-// MyGuitarApp.swift
+// App/MyGuitarApp.swift
 
 import SwiftUI
 

@@ -1,4 +1,4 @@
-// ScoreView.swift
+// Features/Scores/ScoreView.swift
 // ScoreView: 이후 사용 or 삭제 예정
 
 import SwiftUI

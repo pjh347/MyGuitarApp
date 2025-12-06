@@ -1,4 +1,4 @@
-// SongDetailView.swift
+// Features/Songs/SongDetailView.swift
 // SongsTabView에서 song을 선택할 경우 출력되는 view
 
 import SwiftUI

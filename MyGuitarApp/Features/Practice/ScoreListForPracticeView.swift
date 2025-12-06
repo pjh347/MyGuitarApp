@@ -1,4 +1,4 @@
-//  ScoreListForPracticeView.swift
+// Features/Practice/ScoreListForPracticeView.swift
 
 import SwiftUI
 

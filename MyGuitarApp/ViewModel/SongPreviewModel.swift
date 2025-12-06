@@ -1,4 +1,4 @@
-//  SongPreviewViewModel.swift
+// ViewModel/SongPreviewViewModel.swift
 
 import Foundation
 import SwiftUI

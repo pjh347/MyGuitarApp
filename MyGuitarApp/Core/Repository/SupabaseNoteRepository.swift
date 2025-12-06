@@ -1,4 +1,4 @@
-// SupabaseNoteRepository.swift
+// Core/Repository/SupabaseNoteRepository.swift
 
 import Foundation
 
